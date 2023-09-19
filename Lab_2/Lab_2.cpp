@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <cmath>
 #include <ppl.h>
 #include <vector>
 #include <deque>
@@ -9,7 +8,7 @@ using namespace std;
 
 
 const double MULTIPLIER = 100;
-const int N = 2000;
+const int N = 200;
 
 double Function(double x) {
 
@@ -73,28 +72,29 @@ int main()
 	list<double> lst_cpy(lst);
 	deque<double> deq_cpy(deq);
 
+
 	auto t_start = clock();
-	for_each(vec.begin(), vec.end(), [](double& x) { x = Function(x); });
-	cout << "Vector/for_each: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
+	transform(vec.begin(), vec.end(), vec.begin(), Function);
+	cout << "Vector/transform: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
 
 	t_start = clock();
-	for_each(lst.begin(), lst.end(), [](double& x) { x = Function(x); });
-	cout << "List/for_each: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
+	transform(lst.begin(), lst.end(), lst.begin(), Function);
+	cout << "List/transform: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
 
 	t_start = clock();
-	for_each(deq.begin(), deq.end(), [](double& x) { x = Function(x); });
-	cout << "Deque/for_each: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
+	transform(deq.begin(), deq.end(), deq.begin(), Function);
+	cout << "Deque/transform: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
 
 
 	t_start = clock();
-	concurrency::parallel_for_each(vec_cpy.begin(), vec_cpy.end(), [](double& x) { x = Function(x); });
-	cout << "Vector/for_each_parallel: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
+	concurrency::parallel_transform(vec_cpy.begin(), vec_cpy.end(), vec_cpy.begin(), Function);
+	cout << "Vector/parallel_transform: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
 
 	t_start = clock();
-	concurrency::parallel_for_each(lst_cpy.begin(), lst_cpy.end(), [](double& x) { x = Function(x); });
-	cout << "List/for_each_parallel: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
+	concurrency::parallel_transform(lst_cpy.begin(), lst_cpy.end(), lst_cpy.begin(), Function);
+	cout << "List/parallel_transform: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
 
 	t_start = clock();
-	concurrency::parallel_for_each(deq_cpy.begin(), deq_cpy.end(), [](double& x) { x = Function(x); });
-	cout << "Deque/for_each_parallel: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
+	concurrency::parallel_transform(deq_cpy.begin(), deq_cpy.end(), deq_cpy.begin(), Function);
+	cout << "Deque/parallel_transform: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
 }
