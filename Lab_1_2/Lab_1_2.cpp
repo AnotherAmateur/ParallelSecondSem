@@ -9,7 +9,7 @@ using namespace std;
 
 
 const double MULTIPLIER = 100;
-const int N = 2000;
+const int N = 200;
 
 double Function(double x) {
 

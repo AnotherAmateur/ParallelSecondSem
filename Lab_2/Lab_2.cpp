@@ -8,7 +8,7 @@ using namespace std;
 
 
 const double MULTIPLIER = 100;
-const int N = 200;
+const int N = 100;
 
 double Function(double x) {
 

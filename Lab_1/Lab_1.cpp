@@ -33,7 +33,7 @@ void Print(double* y, int len) {
 int main()
 {
 	const double MULTIPLIER = 100;
-	const int N = 2000;
+	const int N = 200;
 	double* y = new double[N];
 
 	auto t_start = clock();
@@ -52,5 +52,5 @@ int main()
 
 	cout << "Multi thread duration: " << (clock() - t_start) / CLOCKS_PER_SEC << " sec. \n\n";
 
-	Print(y, N);
+	//Print(y, N);
 }
